@@ -16,8 +16,11 @@ shuffleCards()
 //Pour faire pivoter les cartes
 cards.forEach(card => card.addEventListener("click", flipAcard));
 
+let locked = false; //pour vérouiller les bonnes cartes trouvées
 let cardsPicked = [];
 function flipAcard(e){
+    if(locked) return;
+
     // console.log(e.target.children[0], e.target.getAttribute("data-attr"));
 
     saveCard(e.target.children[0], e.target.getAttribute("data-attr"));
@@ -35,5 +38,17 @@ function saveCard(el, value){
 }
 
 function result(){
-    
+    if(cardsPicked[0].value === cardsPicked[1].value){
+        cardsPicked[0].el.parentElement.removeEventListener("click", flipAcard);
+        cardsPicked[1].el.parentElement.removeEventListener("click", flipAcard);
+        cardsPicked = [];
+        return;
+    }
+    locked = true;
+    setTimeout(() => {
+        cardsPicked[0].el.classList.remove("active");
+        cardsPicked[1].el.classList.remove("active");
+        cardsPicked = [];
+        locked = false;
+    }, 1000)
 }
