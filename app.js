@@ -34,10 +34,12 @@ function saveCard(el, value){
 
     el.classList.add("active");
     cardsPicked.push({el, value});
-    console.log(cardsPicked);
+    // console.log(cardsPicked);
 }
 
 function result(){
+    saveNumberofTries()
+
     if(cardsPicked[0].value === cardsPicked[1].value){
         cardsPicked[0].el.parentElement.removeEventListener("click", flipAcard);
         cardsPicked[1].el.parentElement.removeEventListener("click", flipAcard);
@@ -51,4 +53,21 @@ function result(){
         cardsPicked = [];
         locked = false;
     }, 1000)
+}
+
+const innerCards = [...document.querySelectorAll(".double-face")];
+const advice = document.querySelector(".advice");
+const score =document.querySelector(".score");
+
+let numberOfTries = 0;
+function saveNumberofTries(){
+    numberOfTries++;
+    const checkForEnd = innerCards.filter(card =>!card.classList.contains("active"));
+    // console.log(checkForEnd)
+    if(!checkForEnd.length){
+        advice.textContent = "Bravo ! Appuyez sur la barre 'espace' pour relancer une partie."
+        score.textContent = `Votre score final : ${numberOfTries}`
+        return;
+    }
+    score.textContent = `Nombre de coups : ${numberOfTries}`
 }
