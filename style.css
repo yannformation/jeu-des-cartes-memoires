@@ -12,3 +12,98 @@ body {
   background: linear-gradient(to right, #d17608, #ec3503);
   padding: clamp(20px, 5vw, 50px) 20px 10px;
 }
+
+h1,
+.score,
+.advice{
+  text-align: center;
+  color: #f1f1f1;
+}
+
+h1{
+  font-family: Raleway;
+  font-size: clamp(25px, 7vw, 70px);
+  font-weight: 300;
+}
+
+h1 span{
+  font-weight: 800;
+}
+
+.advice{
+  font-size: clamp(16px, 2.5vw, 25px);
+  margin-top: 10px;
+
+}
+
+.score{
+  font-size: clamp(16px, 2vw, 20px);
+  margin-top: 15px;
+}
+/*Création de la grille des éléments des cartes*/
+.grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 800px;
+  gap: 10px;
+  margin: 30px auto 0;
+}
+
+/*Mise en forme carré des cartes*/
+.card{
+  aspect-ratio: 1/1;
+  perspective: 1000px; /*perspective mise sur le parent*/
+  cursor: pointer; 
+  user-select: none; /*pour éviter de sélectionner les images*/
+  transition: transform 0.2s ease-out;
+}
+
+.card:hover{
+  transform: scale(1.02);
+}
+
+/*Mise en forme recto verso des cartes*/
+.double-face{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform; /*pour éviter d'éventuels bugs d'animation*/
+  transition: transform 0.6s ;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+/*Réglage de chaque face de la carte*/
+.face,
+.back{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 5px;
+  background: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*Taille des images*/
+.face img,
+.back img{
+  width: 60%;
+}
+
+/*côté back caché pour commencer*/
+.back{
+  backface-visibility: hidden;/*ne fonctionne qu'avec un environnement 3D*/
+  -webkit-backface-visibility: hidden;/*webkit pour s'assurer que ça fonctionne sur tous les navigateurs*/
+}
+
+/*Pour mettre les images dans le bons sens*/
+.face{
+  transform: rotateY(180deg);
+}
+
+/*Rotation des cartes*/
+.active{
+  transform: rotateY(180deg);
+}
