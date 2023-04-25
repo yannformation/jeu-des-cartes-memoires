@@ -71,3 +71,25 @@ function saveNumberofTries(){
     }
     score.textContent = `Nombre de coups : ${numberOfTries}`
 }
+
+//remise à zéro avec la barre espace
+window.addEventListener("keydown", handleRestart);
+
+let shuffleLock = false; // pour empêcher le spam
+function handleRestart(e){
+    e.preventDefault(); // pour empêcher le comportement par défaut de la barre espace
+    if(e.keyCode ===32){
+        innerCards.forEach(card => card.classList.remove("active"))
+        advice.textContent = "Tentez de gagner avec le moins d'essais possible."
+        score.textContent = `Nombre de coups : 0`
+        numberOfTries = 0;
+        cards.forEach(card => card.addEventListener("click", flipAcard))
+
+        if(shuffleLock)return;
+        shuffleLock =true;
+        setTimeout(() => {
+            shuffleCards()
+            shuffleLock=false;
+        }, 600)
+    } 
+}
