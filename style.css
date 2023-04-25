@@ -71,6 +71,7 @@ h1 span{
   will-change: transform; /*pour éviter d'éventuels bugs d'animation*/
   transition: transform 0.6s ;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
 }
 
 /*Réglage de chaque face de la carte*/
@@ -85,6 +86,7 @@ h1 span{
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
 }
 /*Taille des images*/
 .face img,
